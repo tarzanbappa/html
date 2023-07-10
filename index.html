@@ -2,26 +2,43 @@
     <head>
        
         <script type="text/javascript">
-            function scanReceived(params){
-                if(params['data']== "" || params['time']==""){
-                    document.getElementById('display').innerHTML = "Failed!";
-                    return;
-                }
+            // function scanReceived(params){
+            //     if(params['data']== "" || params['time']==""){
+            //         document.getElementById('display').innerHTML = "Failed!";
+            //         return;
+            //     }
 
-                var displayStr = "Barcode Data: " +params['data']+"<br>Time: "+params['time'];
-                document.getElementById("display").innerHTML = displayStr;
-            }
+            //     var displayStr = "Barcode Data: " +params['data']+"<br>Time: "+params['time'];
+            //     document.getElementById("display").innerHTML = displayStr;
+            // }
 
-            function loadEvent(){
-                EB.Barcode.enable({allDecoders:true}, scanReceived);
-            }
+            // function loadEvent(){
+            //     EB.Barcode.enable({allDecoders:true}, scanReceived);
+            // }
 
-            function unloadEvent(){
-                 EB.Barcode.disable();
-            }
+            // function unloadEvent(){
+            //      EB.Barcode.disable();
+            // }
 
-            window.addEventListener('DOMContentLoaded', loadEvent);
-            window.addEventListener('unload',unloadEvent);
+            // window.addEventListener('DOMContentLoaded', loadEvent);
+            // window.addEventListener('unload',unloadEvent);
+
+            (function() {
+
+    // Poll for EB namespace to come into existence
+    var checkReady = function(callback) {
+        if (window.EB) {
+            callback(EB);
+        }
+        else {
+            window.setTimeout(function() { checkReady(callback); }, 100); //check here
+        }
+    };
+    // Start polling...
+    checkReady(function(EB) {
+      alert(EB.Application.appName); //use EB api here
+    });
+})();
         </script>
     </head>
 
