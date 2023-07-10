@@ -34,15 +34,25 @@
             window.setTimeout(function() { checkReady(callback); }, 100); //check here
         }
     };
+   var scanReceived= function(params){
+                if(params['data']== "" || params['time']==""){
+                    document.getElementById('display').innerHTML = "Failed!";
+                    return;
+                }
+
+                var displayStr = "Barcode Data: " +params['data']+"<br>Time: "+params['time'];
+                document.getElementById("display").innerHTML = displayStr;
+            };
     // Start polling...
     checkReady(function(EB) {
+        EB.Barcode.enable({allDecoders:true}, scanReceived);
       alert(EB.Application.appName); //use EB api here
     });
 })();
         </script>
     </head>
 
-    <body onload="Javascript:loadEvent()" onunload="Javascript:unloadEvent()">
+    <body >
         <h1>Scan Common API (EB)</h1>
         Scan a barcode.<br><br><br>
         <div id="display">
